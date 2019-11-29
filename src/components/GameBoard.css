@@ -91,10 +91,7 @@
   }
   
   .buttons {
-    position: fixed;
-    bottom: 30px;
-    left: 50%;
-    transform: translate(-50%, 0);
+  margin: 10px;
   }
   
   .question-button {
@@ -109,11 +106,9 @@
   }
   
   .question-button:first-of-type{
-    margin-right: 10px;
   }
   
   .question-button:last-of-type{
-    margin-left: 10px;
   }
   .add-button {
     margin-left: 10px;
@@ -130,4 +125,8 @@
   }
   .steal-points-container {
     display: inline-grid;
+  }
+  .game-dynamics {
+    display: flex;
+    justify-content: center;
   }

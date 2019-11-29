@@ -4,6 +4,7 @@ import { getQuestionsHook } from './Questions';
 import { TeamScore } from './TeamScore';
 import { UseGlobalStateContext } from '../context/globalStateContext';
 import { LeftArrow, RightArrow } from './arrow/arrows';
+import { CountDownTimer } from './CountDownTimer/CountDownTimer';
 function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
 }
@@ -92,19 +93,26 @@ const GameBoard = () => {
                     })}
                 </div>
 
-                <div className='buttons'>
-                    <button className="question-button" onClick={handleNext}>Next Question</button>
-                </div>
-                <h1 className="timer" onClick={runTimer}>Timer</h1>
-                <h1>Steal Points!</h1>
 
-                <div className="steal-points-container">
-                    <LeftArrow onClick={stealFromTeamOne} />
-                    <RightArrow onClick={stealFromTeamTwo} />
+                <div className="game-dynamics">
+                    <div>
+                        <h1 className="timer" onClick={runTimer}>Timer</h1>
+                        <CountDownTimer />
+                    </div>
+                    <div className='buttons'>
+                        <button className="question-button" onClick={handleNext}>Next Question</button>
+                    </div>
+                    <div>
+                        <h1>Steal Points!</h1>
+                        <div className="steal-points-container">
+                            <LeftArrow onClick={stealFromTeamOne} />
+                            <RightArrow onClick={stealFromTeamTwo} />
+                        </div>
+                        <h1 id="countdown" />
+                    </div>
+                    <TeamScore team1 />
+                    <TeamScore />
                 </div>
-                <h1 id="countdown" />
-                <TeamScore team1 />
-                <TeamScore />
             </div>
         )
     }
