@@ -1,0 +1,17 @@
+.answer-board {
+    position: absolute;
+    top: 8%;
+    left: 10%;
+}
+
+.search-bar {
+    position: absolute;
+    -ms-flex-item-align: center;
+    align-self: center;
+    left: 10%;
+    top: 5%;
+    height: 25px;
+    width: 290px;
+    font-size: 13pt;
+
+}
