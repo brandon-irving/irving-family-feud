@@ -3,6 +3,7 @@ import './GameBoard.css';
 import { getQuestionsHook } from './Questions';
 import { TeamScore } from './TeamScore';
 import { UseGlobalStateContext } from '../context/globalStateContext';
+import { LeftArrow, RightArrow } from './arrow/arrows';
 function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
 }
@@ -10,10 +11,10 @@ function getRandomInt(max) {
 const GameBoard = () => {
     document.title = 'Irving Family Feud';
     const { loading, questions, error } = getQuestionsHook()
-
-    const { setScoreAmount } = UseGlobalStateContext().globalContext
+    const { setFirstScore, setSecondScore, setScoreAmount, scoreAmount, firstScore, secondScore } = UseGlobalStateContext().globalContext
     const [questionIndex, setquestionIndex] = useState(getRandomInt(1977))
     const [questionNumber, setquestionNumber] = useState(0)
+    const [roundPoints, setRoundPoints] = useState(0)
 
     const [countdown, setcountdown] = useState(10)
 
@@ -46,7 +47,28 @@ const GameBoard = () => {
             }, 1000);
         }
 
+        function stealFromTeamOne() {
+            const stolenAmount = secondScore + scoreAmount
+            const newFistScore = firstScore - scoreAmount < 1 ? 0 : firstScore - scoreAmount
+            setFirstScore(newFistScore)
+            setSecondScore(stolenAmount)
+        }
+        function stealFromTeamTwo() {
+            const stolenAmount = firstScore + scoreAmount
+            const newSecondScore = secondScore - scoreAmount < 1 ? 0 : secondScore - scoreAmount
+            setSecondScore(newSecondScore)
+            setFirstScore(stolenAmount)
+        }
+        const handleAnswerClick = (score) => {
+            const newScore = score + roundPoints
 
+            setTimeout(() => {
+                setRoundPoints(newScore)
+                setScoreAmount(newScore)
+            }, 100);
+
+
+        }
         return (
             <div className="App">
                 <header className="App-header">
@@ -60,7 +82,8 @@ const GameBoard = () => {
                     {currentQuestion.choices.map((choice, i) => {
                         const scoreRegex = choice.replace(/\D/g, '')
                         return (
-                            <div onClick={() => setScoreAmount(Number(scoreRegex))} key={choice} className='choice-container'>
+                            <div onClick={() => handleAnswerClick(Number(scoreRegex))}
+                                key={choice} className='choice-container'>
                                 <input className="checkbox" type='checkbox' id={i} />
                                 <label htmlFor={i} className='cover'>{i + 1}</label>
                                 <div className='choice'>{choice}</div>
@@ -73,7 +96,12 @@ const GameBoard = () => {
                     <button className="question-button" onClick={handleNext}>Next Question</button>
                 </div>
                 <h1 className="timer" onClick={runTimer}>Timer</h1>
+                <h1>Steal Points!</h1>
 
+                <div className="steal-points-container">
+                    <LeftArrow onClick={stealFromTeamOne} />
+                    <RightArrow onClick={stealFromTeamTwo} />
+                </div>
                 <h1 id="countdown" />
                 <TeamScore team1 />
                 <TeamScore />

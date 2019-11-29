@@ -128,3 +128,6 @@
   .timer:hover {
    cursor: pointer;
   }
+  .steal-points-container {
+    display: inline-grid;
+  }
