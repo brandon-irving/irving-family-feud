@@ -23,7 +23,7 @@ const GameBoard = () => {
     else {
         function handleNext() {
             let currentQIndex = questionNumber;
-
+            setScoreAmount(0)
             if (currentQIndex !== questions.length - 1) {
                 currentQIndex++;
                 setquestionNumber(currentQIndex)

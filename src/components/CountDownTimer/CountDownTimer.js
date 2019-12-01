@@ -85,7 +85,7 @@ export class CountDownTimer extends React.Component {
 
     handleReset() {
         this.setState(
-            { count: 0 }
+            { count: 15 }
         );
     }
 
